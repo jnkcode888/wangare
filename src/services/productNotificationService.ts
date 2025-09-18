@@ -8,7 +8,7 @@ export interface ProductNotificationData {
 
 export const sendNewProductNotification = async (productData: ProductNotificationData) => {
   try {
-    const response = await fetch('https://wangare.vercel.app/api/email?action=new-product-notification', {
+    const response = await fetch('https://www.wangareluxe.com/api/email?action=new-product-notification', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export const sendNewProductNotification = async (productData: ProductNotificatio
 
 export const sendBulkProductNotification = async (productData: ProductNotificationData, subscriberEmails: string[]) => {
   try {
-    const response = await fetch('https://wangare.vercel.app/api/email?action=bulk-product-notification', {
+    const response = await fetch('https://www.wangareluxe.com/api/email?action=bulk-product-notification', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

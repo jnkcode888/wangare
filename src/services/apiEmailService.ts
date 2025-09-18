@@ -3,7 +3,7 @@ import { createContactMessage } from './contactMessageService';
 
 // Use Vercel API URL - will be replaced with custom domain once functions are working
 const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://wangare.vercel.app/api'
+  ? 'https://www.wangareluxe.com/api'
   : 'http://localhost:3000/api';
 
 // Test SMTP connection
