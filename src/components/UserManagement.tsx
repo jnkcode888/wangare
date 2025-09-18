@@ -93,17 +93,17 @@ const UserManagement: React.FC = () => {
 
   const getStatusBadge = (isActive: boolean) => {
     if (isActive) {
-      return (
+    return (
         <span className="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
           Active
-        </span>
-      );
+      </span>
+    );
     } else {
-      return (
+    return (
         <span className="px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
           Inactive
-        </span>
-      );
+      </span>
+    );
     }
   };
 
@@ -279,7 +279,7 @@ const UserManagement: React.FC = () => {
                             {unsubscribing === subscriber.email ? (
                               <RefreshCwIcon className="h-4 w-4 animate-spin" />
                             ) : (
-                              <TrashIcon className="h-4 w-4" />
+                            <TrashIcon className="h-4 w-4" />
                             )}
                           </button>
                         </div>

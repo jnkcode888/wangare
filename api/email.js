@@ -1,5 +1,5 @@
-const nodemailer = require('nodemailer');
-const { createClient } = require('@supabase/supabase-js');
+import nodemailer from 'nodemailer';
+import { createClient } from '@supabase/supabase-js';
 
 // Supabase Configuration
 const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://your-project.supabase.co';
@@ -20,7 +20,7 @@ const SMTP_CONFIG = {
 // Create transporter
 const transporter = nodemailer.createTransport(SMTP_CONFIG);
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   // Enhanced CORS handling - Set headers first
   const allowedOrigins = [
     'https://www.wangareluxe.com',
