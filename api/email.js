@@ -665,6 +665,24 @@ This is an automated message. Please do not reply to this email.
         }
 
         try {
+          // Test Supabase connection first
+          console.log('Testing Supabase connection...');
+          const { data: testData, error: testError } = await supabase
+            .from('newsletter_subscribers')
+            .select('count')
+            .limit(1);
+
+          if (testError) {
+            console.error('Supabase connection test failed:', testError);
+            return res.status(500).json({ 
+              success: false, 
+              error: 'Database connection failed',
+              details: testError.message
+            });
+          }
+
+          console.log('Supabase connection successful, checking existing subscriber...');
+          
           // Check if email already exists
           const { data: existingSubscriber, error: checkError } = await supabase
             .from('newsletter_subscribers')
@@ -676,7 +694,8 @@ This is an automated message. Please do not reply to this email.
             console.error('Error checking existing subscriber:', checkError);
             return res.status(500).json({ 
               success: false, 
-              error: 'Database error' 
+              error: 'Database error',
+              details: checkError.message
             });
           }
 
