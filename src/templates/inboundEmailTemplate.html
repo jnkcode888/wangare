@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {{#if (eq template_type "contact_form")}}New Contact Form
+      Submission{{/if}}{{#if (eq template_type "admin_notification")}}Admin
+      Notification{{/if}}
+    </title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+      }
+      .header {
+        background: linear-gradient(135deg, #d4af37, #b8941f);
+        padding: 20px;
+        text-align: center;
+      }
+      .logo {
+        color: #ffffff;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .tagline {
+        color: #ffffff;
+        font-size: 12px;
+        opacity: 0.9;
+      }
+      .content {
+        padding: 30px;
+      }
+      .notification {
+        background-color: #fff3cd;
+        border: 1px solid #ffeaa7;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+      .notification-title {
+        font-weight: bold;
+        color: #856404;
+        margin-bottom: 10px;
+      }
+      .form-details {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+      .form-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+      }
+      .form-row:last-child {
+        border-bottom: none;
+      }
+      .form-label {
+        font-weight: bold;
+        color: #333;
+      }
+      .form-value {
+        color: #555;
+      }
+      .message-content {
+        background-color: #f0f0f0;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 15px 0;
+        font-style: italic;
+      }
+      .footer {
+        background-color: #333;
+        color: #ffffff;
+        padding: 20px;
+        text-align: center;
+        font-size: 12px;
+      }
+      .action-buttons {
+        margin: 20px 0;
+        text-align: center;
+      }
+      .btn {
+        background-color: #d4af37;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        margin: 0 10px;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div class="logo">WangarèLuxe Admin</div>
+        <div class="tagline">New Notification</div>
+      </div>
+
+      <!-- Content -->
+      <div class="content">
+        {{#if (eq template_type "contact_form")}}
+        <div class="notification">
+          <div class="notification-title">📧 New Contact Form Submission</div>
+          <p>A customer has submitted a contact form on your website.</p>
+        </div>
+
+        <div class="form-details">
+          <h3>Contact Details</h3>
+          <div class="form-row">
+            <span class="form-label">Name:</span>
+            <span class="form-value">{{from_name}}</span>
+          </div>
+          <div class="form-row">
+            <span class="form-label">Email:</span>
+            <span class="form-value">{{from_email}}</span>
+          </div>
+          <div class="form-row">
+            <span class="form-label">Phone:</span>
+            <span class="form-value">{{phone}}</span>
+          </div>
+          <div class="form-row">
+            <span class="form-label">Subject:</span>
+            <span class="form-value">{{subject}}</span>
+          </div>
+          <div class="form-row">
+            <span class="form-label">Submitted:</span>
+            <span class="form-value">{{submission_date}}</span>
+          </div>
+        </div>
+
+        <div class="message-content">
+          <strong>Message:</strong><br />
+          {{message}}
+        </div>
+
+        <div class="action-buttons">
+          <a href="mailto:{{from_email}}?subject=Re: {{subject}}" class="btn"
+            >Reply to Customer</a
+          >
+          <a href="https://your-admin-panel.com/messages" class="btn"
+            >View in Admin Panel</a
+          >
+        </div>
+        {{/if}} {{#if (eq template_type "admin_notification")}}
+        <div class="notification">
+          <div class="notification-title">🔔 Admin Notification</div>
+          <p>{{notification_message}}</p>
+        </div>
+
+        <div class="form-details">
+          <h3>Notification Details</h3>
+          <div class="form-row">
+            <span class="form-label">Type:</span>
+            <span class="form-value">{{notification_type}}</span>
+          </div>
+          <div class="form-row">
+            <span class="form-label">Priority:</span>
+            <span class="form-value">{{priority}}</span>
+          </div>
+          <div class="form-row">
+            <span class="form-label">Timestamp:</span>
+            <span class="form-value">{{timestamp}}</span>
+          </div>
+        </div>
+
+        <div class="message-content">
+          <strong>Details:</strong><br />
+          {{notification_details}}
+        </div>
+
+        <div class="action-buttons">
+          <a href="https://your-admin-panel.com" class="btn"
+            >View Admin Panel</a
+          >
+        </div>
+        {{/if}}
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <p>WangarèLuxe Admin Panel | This is an automated notification</p>
+        <p>Generated on {{current_date}} at {{current_time}}</p>
+      </div>
+    </div>
+  </body>
+</html>

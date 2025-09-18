@@ -1,0 +1,8 @@
+# Hostinger SMTP Configuration
+SMTP_USER=info@wangareluxe.com
+SMTP_PASSWORD=your_hostinger_email_password_here
+
+# Instructions:
+# 1. Copy this file to .env
+# 2. Replace 'your_hostinger_email_password_here' with your actual Hostinger email password
+# 3. Make sure .env is in your .gitignore file (never commit passwords!)

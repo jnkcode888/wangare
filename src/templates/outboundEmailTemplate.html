@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {{#if (eq template_type "order_confirmation")}}Order
+      Confirmation{{/if}}{{#if (eq template_type "payment_confirmed")}}Payment
+      Confirmed{{/if}}{{#if (eq template_type "payment_failed")}}Payment
+      Failed{{/if}}{{#if (eq template_type "welcome")}}Welcome to
+      WangarèLuxe{{/if}}{{#if (eq template_type "order_shipped")}}Order
+      Shipped{{/if}}{{#if (eq template_type "order_delivered")}}Order
+      Delivered{{/if}}
+    </title>
+    <style>
+      body {
+        font-family: "Georgia", serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+      }
+      .header {
+        background: linear-gradient(135deg, #d4af37, #b8941f);
+        padding: 30px;
+        text-align: center;
+      }
+      .logo {
+        color: #ffffff;
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .tagline {
+        color: #ffffff;
+        font-size: 14px;
+        opacity: 0.9;
+      }
+      .content {
+        padding: 40px 30px;
+      }
+      .greeting {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 20px;
+      }
+      .message {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #555;
+        margin-bottom: 25px;
+      }
+      .order-details {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+      .order-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+      .order-item:last-child {
+        border-bottom: none;
+      }
+      .total {
+        font-weight: bold;
+        font-size: 18px;
+        color: #d4af37;
+      }
+      .footer {
+        background-color: #333;
+        color: #ffffff;
+        padding: 30px;
+        text-align: center;
+      }
+      .social-links {
+        margin: 20px 0;
+      }
+      .social-links a {
+        color: #d4af37;
+        text-decoration: none;
+        margin: 0 10px;
+      }
+      .contact-info {
+        font-size: 14px;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div class="logo">WangarèLuxe</div>
+        <div class="tagline">Timeless Luxury, African Craftsmanship</div>
+      </div>
+
+      <!-- Content -->
+      <div class="content">
+        {{#if (eq template_type "order_confirmation")}}
+        <div class="greeting">Dear {{customer_name}},</div>
+        <div class="message">
+          Thank you for your order! We're excited to prepare your WangarèLuxe
+          pieces for you.
+        </div>
+        <div class="order-details">
+          <h3>Order Details</h3>
+          <div class="order-item">
+            <span>Order Number:</span>
+            <span>{{order_number}}</span>
+          </div>
+          <div class="order-item">
+            <span>Order Date:</span>
+            <span>{{order_date}}</span>
+          </div>
+          <div class="order-item">
+            <span>Total Amount:</span>
+            <span class="total">KSh {{total_amount}}</span>
+          </div>
+        </div>
+        <div class="message">
+          We'll send you another email once your payment is confirmed and your
+          order is being prepared.
+        </div>
+        {{/if}} {{#if (eq template_type "payment_confirmed")}}
+        <div class="greeting">Dear {{customer_name}},</div>
+        <div class="message">
+          Great news! Your payment has been confirmed and we're now preparing
+          your order.
+        </div>
+        <div class="order-details">
+          <h3>Payment Details</h3>
+          <div class="order-item">
+            <span>Order Number:</span>
+            <span>{{order_number}}</span>
+          </div>
+          <div class="order-item">
+            <span>Payment Amount:</span>
+            <span class="total">KSh {{payment_amount}}</span>
+          </div>
+          <div class="order-item">
+            <span>Payment Method:</span>
+            <span>{{payment_method}}</span>
+          </div>
+          <div class="order-item">
+            <span>Payment Date:</span>
+            <span>{{payment_date}}</span>
+          </div>
+        </div>
+        <div class="message">
+          Your order is now being processed and will be shipped within 2-3
+          business days.
+        </div>
+        {{/if}} {{#if (eq template_type "payment_failed")}}
+        <div class="greeting">Dear {{customer_name}},</div>
+        <div class="message">
+          We encountered an issue processing your payment for order
+          {{order_number}}.
+        </div>
+        <div class="order-details">
+          <h3>Payment Details</h3>
+          <div class="order-item">
+            <span>Order Number:</span>
+            <span>{{order_number}}</span>
+          </div>
+          <div class="order-item">
+            <span>Amount:</span>
+            <span class="total">KSh {{payment_amount}}</span>
+          </div>
+          <div class="order-item">
+            <span>Payment Method:</span>
+            <span>{{payment_method}}</span>
+          </div>
+          <div class="order-item">
+            <span>Issue:</span>
+            <span>{{failure_reason}}</span>
+          </div>
+        </div>
+        <div class="message">
+          Please try again or contact us if you need assistance. Your order will
+          be held for 24 hours.
+        </div>
+        {{/if}} {{#if (eq template_type "welcome")}}
+        <div class="greeting">Welcome to WangarèLuxe!</div>
+        <div class="message">
+          Thank you for joining our community of women who embrace timeless
+          luxury and authentic style.
+        </div>
+        <div class="message">
+          As a member, you'll receive exclusive updates on new collections,
+          styling tips, and special offers.
+        </div>
+        <div class="message">
+          We're excited to be part of your journey toward elegant, intentional
+          living.
+        </div>
+        {{/if}} {{#if (eq template_type "order_shipped")}}
+        <div class="greeting">Dear {{customer_name}},</div>
+        <div class="message">
+          Your order has been shipped! Your WangarèLuxe pieces are on their way
+          to you.
+        </div>
+        <div class="order-details">
+          <h3>Shipping Details</h3>
+          <div class="order-item">
+            <span>Order Number:</span>
+            <span>{{order_number}}</span>
+          </div>
+          <div class="order-item">
+            <span>Tracking Number:</span>
+            <span>{{tracking_number}}</span>
+          </div>
+          <div class="order-item">
+            <span>Estimated Delivery:</span>
+            <span>{{estimated_delivery}}</span>
+          </div>
+        </div>
+        <div class="message">
+          You can track your package using the tracking number above.
+        </div>
+        {{/if}} {{#if (eq template_type "order_delivered")}}
+        <div class="greeting">Dear {{customer_name}},</div>
+        <div class="message">
+          Your order has been delivered! We hope you love your new WangarèLuxe
+          pieces.
+        </div>
+        <div class="order-details">
+          <h3>Delivery Details</h3>
+          <div class="order-item">
+            <span>Order Number:</span>
+            <span>{{order_number}}</span>
+          </div>
+          <div class="order-item">
+            <span>Delivery Date:</span>
+            <span>{{delivery_date}}</span>
+          </div>
+        </div>
+        <div class="message">
+          Thank you for choosing WangarèLuxe. We'd love to hear about your
+          experience!
+        </div>
+        {{/if}}
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <div class="social-links">
+          <a href="#">Instagram</a>
+          <a href="#">TikTok</a>
+          <a href="#">Facebook</a>
+        </div>
+        <div class="contact-info">
+          <p>WangarèLuxe - Timeless Luxury, African Craftsmanship</p>
+          <p>Email: info@wangareluxe.com | Phone: +254 700 000 000</p>
+          <p>Nairobi, Kenya</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

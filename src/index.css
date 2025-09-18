@@ -1,0 +1,52 @@
+/* PLEASE NOTE: THESE TAILWIND IMPORTS SHOULD NEVER BE DELETED */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
+
+/* Custom breakpoint for extra small screens */
+@media (min-width: 475px) {
+  .xs\:inline {
+    display: inline;
+  }
+}
+@layer base {
+  body {
+    @apply font-sans text-luxe-black bg-luxe-white;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl font-medium;
+  }
+  h2 {
+    @apply text-3xl md:text-4xl font-medium;
+  }
+  h3 {
+    @apply text-2xl md:text-3xl font-medium;
+  }
+  h4 {
+    @apply text-xl md:text-2xl font-medium;
+  }
+  p {
+    @apply text-base leading-relaxed;
+  }
+}
+@layer components {
+  .btn {
+    @apply px-6 py-3 font-sans font-medium transition-all duration-300;
+  }
+  .btn-primary {
+    @apply bg-luxe-black text-white hover:bg-opacity-90;
+  }
+  .btn-outline {
+    @apply border border-luxe-black text-luxe-black hover:bg-luxe-black hover:text-white;
+  }
+  .btn-gold {
+    @apply bg-gold text-white hover:bg-gold-dark;
+  }
+  .container-luxe {
+    @apply container mx-auto px-4 md:px-6 lg:px-8;
+  }
+}
