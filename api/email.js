@@ -152,7 +152,7 @@ export default async function handler(req, res) {
               </div>
               <div class="footer">
                 <p>This email was sent from the WangarèLuxe contact form.</p>
-                <p>Please respond directly to: ${email}</p>
+                <p>Please respond directly to: ${contactEmail}</p>
               </div>
             </div>
           </body>
