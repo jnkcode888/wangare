@@ -1020,23 +1020,23 @@ This is an automated message. Please do not reply to this email.
         let errorCount = 0;
         const errors = [];
 
-        for (const email of subscriberEmails) {
+        for (const subscriberEmail of subscriberEmails) {
           try {
             const bulkMailOptions = {
               ...productMailOptions,
-              to: email,
+              to: subscriberEmail,
               subject: bulkProductSubject,
               html: bulkProductHtml,
               text: `New Arrival: ${bulkProduct.name} - Get ${bulkDiscountPercentage}% off with code ${bulkDiscountCode}. Shop now at https://www.wangareluxe.com/products/${bulkProduct.id}`
             };
 
             const result = await transporter.sendMail(bulkMailOptions);
-            console.log(`Product notification sent to ${email}:`, result.messageId);
+            console.log(`Product notification sent to ${subscriberEmail}:`, result.messageId);
             successCount++;
           } catch (error) {
-            console.error(`Failed to send to ${email}:`, error);
+            console.error(`Failed to send to ${subscriberEmail}:`, error);
             errorCount++;
-            errors.push({ email, error: error.message });
+            errors.push({ email: subscriberEmail, error: error.message });
           }
         }
 
