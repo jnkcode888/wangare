@@ -674,10 +674,61 @@ This is an automated message. Please do not reply to this email.
 
           if (testError) {
             console.error('Supabase connection test failed:', testError);
-            return res.status(500).json({ 
-              success: false, 
-              error: 'Database connection failed',
-              details: testError.message
+            console.log('Falling back to email-only subscription (no database storage)');
+            
+            // Fallback: Just send welcome email without database storage
+            const fallbackDiscountCode = `WELCOME${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+            
+            // Create welcome email with discount
+            const welcomeSubject = 'Welcome to WangarèLuxe Club - Your Exclusive Discount Awaits';
+            const welcomeHtml = `
+              <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff;">
+                <div style="background: linear-gradient(135deg, #D4AF37, #B8860B); padding: 40px 20px; text-align: center;">
+                  <h1 style="color: white; margin: 0; font-size: 28px; font-weight: bold;">Welcome to WangarèLuxe Club!</h1>
+                  <p style="color: #f8f8f8; margin: 10px 0 0 0; font-size: 16px;">You're now part of our exclusive community</p>
+                </div>
+                
+                <div style="padding: 40px 20px;">
+                  <h2 style="color: #333; margin: 0 0 20px 0;">Thank you for joining us!</h2>
+                  <p style="color: #666; line-height: 1.6; margin: 0 0 20px 0;">
+                    We're thrilled to have you as part of the WangarèLuxe family. As a welcome gift, 
+                    we're giving you an exclusive discount code to use on your first purchase.
+                  </p>
+                  
+                  <div style="background: #f8f9fa; border: 2px dashed #D4AF37; padding: 20px; text-align: center; margin: 30px 0;">
+                    <h3 style="color: #D4AF37; margin: 0 0 10px 0; font-size: 18px;">Your Exclusive Discount Code</h3>
+                    <div style="background: #D4AF37; color: white; padding: 15px; font-size: 24px; font-weight: bold; letter-spacing: 2px; margin: 10px 0;">
+                        ${fallbackDiscountCode}
+                    </div>
+                    <p style="color: #666; margin: 10px 0 0 0; font-size: 14px;">Use this code at checkout for 10% off your first order</p>
+                  </div>
+                  
+                  <div style="text-align: center; margin: 30px 0;">
+                    <a href="https://www.wangareluxe.com/products" 
+                       style="background: #D4AF37; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">
+                      Shop Now
+                    </a>
+                  </div>
+                </div>
+              </div>
+            `;
+
+            const welcomeMailOptions = {
+              from: '"WangarèLuxe" <info@wangareluxe.com>',
+              to: subscriberEmail,
+              subject: welcomeSubject,
+              html: welcomeHtml,
+              text: `Welcome to WangarèLuxe Club! Your exclusive discount code is: ${fallbackDiscountCode}. Use it for 10% off your first order.`
+            };
+
+            const welcomeResult = await transporter.sendMail(welcomeMailOptions);
+            console.log('Fallback welcome email sent:', welcomeResult.messageId);
+            
+            return res.status(200).json({ 
+              success: true, 
+              messageId: welcomeResult.messageId,
+              discountCode: fallbackDiscountCode,
+              note: 'Subscription successful (email-only mode due to database connection issue)'
             });
           }
 
