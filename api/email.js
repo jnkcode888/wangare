@@ -25,6 +25,7 @@ module.exports = async function handler(req, res) {
   const allowedOrigins = [
     'https://www.wangareluxe.com',
     'https://wangareluxe.com',
+    'https://wangare.vercel.app',
     'http://localhost:3000',
     'http://localhost:5173'
   ];
@@ -77,9 +78,9 @@ module.exports = async function handler(req, res) {
           return res.status(405).json({ error: 'Method not allowed' });
         }
 
-        const { name, email, subject, message, phone } = req.body;
+        const { name, email: contactEmail, subject, message, phone } = req.body;
 
-        if (!name || !email || !subject || !message) {
+        if (!name || !contactEmail || !subject || !message) {
           return res.status(400).json({ 
             success: false, 
             error: 'Missing required fields' 
@@ -117,7 +118,7 @@ module.exports = async function handler(req, res) {
                 </div>
                 <div class="field">
                   <div class="label">Email:</div>
-                  <div class="value">${email}</div>
+                  <div class="value">${contactEmail}</div>
                 </div>
                 <div class="field">
                   <div class="label">Phone:</div>
@@ -150,7 +151,7 @@ module.exports = async function handler(req, res) {
 CONTACT FORM SUBMISSION - WangarèLuxe
 
 New message received from: ${name}
-Email: ${email}
+Email: ${contactEmail}
 Phone: ${phone || 'Not provided'}
 Subject: ${subject}
 
@@ -169,7 +170,7 @@ Reply directly to this email to respond to the customer.
           html: contactHtml,
           text: contactText,
           headers: {
-            'Reply-To': email,
+            'Reply-To': contactEmail,
             'X-Priority': '3',
             'X-MSMail-Priority': 'Normal',
             'Importance': 'normal',
