@@ -2,6 +2,9 @@
   "functions": {
     "api/email.js": {
       "maxDuration": 30
+    },
+    "api/test-simple.js": {
+      "maxDuration": 10
     }
   },
   "rewrites": [
