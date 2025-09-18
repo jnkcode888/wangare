@@ -641,9 +641,9 @@ This is an automated message. Please do not reply to this email.
         });
 
       case 'newsletter-subscribe':
-        const { email } = req.body;
+        const { email: subscriberEmail } = req.body;
         
-        if (!email) {
+        if (!subscriberEmail) {
           return res.status(400).json({ 
             success: false, 
             error: 'Email is required' 
@@ -655,7 +655,7 @@ This is an automated message. Please do not reply to this email.
           const { data: existingSubscriber, error: checkError } = await supabase
             .from('newsletter_subscribers')
             .select('*')
-            .eq('email', email)
+            .eq('email', subscriberEmail)
             .single();
 
           if (checkError && checkError.code !== 'PGRST116') {
@@ -680,7 +680,7 @@ This is an automated message. Please do not reply to this email.
                   is_active: true,
                   subscribed_at: new Date().toISOString()
                 })
-                .eq('email', email);
+                .eq('email', subscriberEmail);
 
               if (updateError) {
                 console.error('Error reactivating subscription:', updateError);
@@ -698,7 +698,7 @@ This is an automated message. Please do not reply to this email.
             const { error: insertError } = await supabase
               .from('newsletter_subscribers')
               .insert({
-                email: email,
+                email: subscriberEmail,
                 is_active: true,
                 discount_code: discountCode
               });
@@ -780,7 +780,7 @@ This is an automated message. Please do not reply to this email.
                   <p style="margin: 0; font-size: 12px; opacity: 0.7;">
                     <a href="https://wangareluxe.com" style="color: #ecf0f1; text-decoration: none;">Visit Our Website</a> | 
                     <a href="mailto:info@wangareluxe.com" style="color: #ecf0f1; text-decoration: none;">Contact Support</a> | 
-                    <a href="https://www.wangareluxe.com/unsubscribe?email=${email}" style="color: #ecf0f1; text-decoration: none;">Unsubscribe</a>
+                    <a href="https://www.wangareluxe.com/unsubscribe?email=${subscriberEmail}" style="color: #ecf0f1; text-decoration: none;">Unsubscribe</a>
                   </p>
                 </div>
               </div>
@@ -790,7 +790,7 @@ This is an automated message. Please do not reply to this email.
 
         const welcomeMailOptions = {
           from: '"WangarèLuxe" <info@wangareluxe.com>',
-          to: email,
+          to: subscriberEmail,
           subject: welcomeSubject,
           html: welcomeHtml,
             text: `Welcome to WangarèLuxe Club! Your exclusive discount code is: ${emailDiscountCode}. Use it for 10% off your first order.`,
