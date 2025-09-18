@@ -953,7 +953,7 @@ This is an automated message. Please do not reply to this email.
         }
 
         // Generate discount code for bulk notification
-        const bulkDiscountCode = bulkDiscountCode || `NEW${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+        const finalBulkDiscountCode = bulkDiscountCode || `NEW${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
 
         // Create the same email template as above
         const bulkProductSubject = `🆕 New Arrival: ${bulkProduct.name} - Exclusive ${bulkDiscountPercentage}% Off!`;
@@ -977,7 +977,7 @@ This is an automated message. Please do not reply to this email.
               <div style="background: #f8f9fa; border: 2px dashed #D4AF37; padding: 20px; text-align: center; margin: 30px 0;">
                 <h3 style="color: #D4AF37; margin: 0 0 10px 0; font-size: 18px;">Exclusive Member Discount</h3>
                 <div style="background: #D4AF37; color: white; padding: 15px; font-size: 24px; font-weight: bold; letter-spacing: 2px; margin: 10px 0;">
-                  ${bulkDiscountCode}
+                  ${finalBulkDiscountCode}
                 </div>
                 <p style="color: #666; margin: 10px 0 0 0; font-size: 14px;">Use this code for ${bulkDiscountPercentage}% off this new arrival</p>
               </div>
@@ -1027,7 +1027,7 @@ This is an automated message. Please do not reply to this email.
               to: subscriberEmail,
               subject: bulkProductSubject,
               html: bulkProductHtml,
-              text: `New Arrival: ${bulkProduct.name} - Get ${bulkDiscountPercentage}% off with code ${bulkDiscountCode}. Shop now at https://www.wangareluxe.com/products/${bulkProduct.id}`
+              text: `New Arrival: ${bulkProduct.name} - Get ${bulkDiscountPercentage}% off with code ${finalBulkDiscountCode}. Shop now at https://www.wangareluxe.com/products/${bulkProduct.id}`
             };
 
             const result = await transporter.sendMail(bulkMailOptions);
@@ -1046,7 +1046,7 @@ This is an automated message. Please do not reply to this email.
           successCount,
           errorCount,
           errors: errors.length > 0 ? errors : undefined,
-          discountCode: bulkDiscountCode
+          discountCode: finalBulkDiscountCode
         });
 
       default:
