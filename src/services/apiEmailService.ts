@@ -1,39 +1,20 @@
-// Email Service - Using EmailJS since Vercel functions are not working
-import emailjs from '@emailjs/browser';
+// API Email Service - Frontend service that calls Vercel API routes
+import { createContactMessage } from './contactMessageService';
 
-// EmailJS configuration - Replace with your actual values from EmailJS dashboard
-const EMAILJS_SERVICE_ID = 'service_1234567'; // Get this from EmailJS dashboard
-const EMAILJS_PUBLIC_KEY = 'your_public_key_here'; // Get this from EmailJS dashboard
-const EMAILJS_TEMPLATE_ID = 'template_1234567'; // Get this from EmailJS dashboard
+// Use Vercel API URL - will be replaced with custom domain once functions are working
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://wangare.vercel.app/api'
+  : 'http://localhost:3000/api';
 
-// Initialize EmailJS
-emailjs.init(EMAILJS_PUBLIC_KEY);
-
-// Test EmailJS connection
+// Test SMTP connection
 export const testSMTPConnection = async () => {
   try {
-    // Test EmailJS by sending a simple test email
-    const result = await emailjs.send(
-      EMAILJS_SERVICE_ID,
-      'template_test', // Create a test template in EmailJS
-      {
-        to_email: 'info@wangareluxe.com',
-        subject: 'EmailJS Test',
-        message: 'This is a test email from EmailJS'
-      }
-    );
-    
-    return { 
-      success: true, 
-      message: 'EmailJS connection successful',
-      messageId: result.text 
-    };
+    const response = await fetch(`${API_BASE_URL}/email?action=test-connection`);
+    const data = await response.json();
+    return data;
   } catch (error) {
-    console.error('EmailJS connection test failed:', error);
-    return { 
-      success: false, 
-      error: error instanceof Error ? error.message : 'EmailJS connection failed' 
-    };
+    console.error('SMTP connection test failed:', error);
+    return { success: false, error: error instanceof Error ? error.message : 'Network error' };
   }
 };
 

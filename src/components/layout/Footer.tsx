@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
     setSubscriptionStatus('idle');
 
     try {
-      const response = await fetch('https://wangari-2i5a8agct-soltechs-projects-a2f78e01.vercel.app/api/email?action=newsletter-subscribe', {
+      const response = await fetch('https://wangare.vercel.app/api/email?action=newsletter-subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
